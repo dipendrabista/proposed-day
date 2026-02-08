@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Propose Day 💍</title>
+  <title>Ultimate Interactive Valentine 💌</title>
   <style>
     body {
       margin: 0;
@@ -56,69 +56,4 @@
     .question { font-size: 18px; font-weight: bold; margin-top: 15px; color: #1d3557; }
     .buttons { margin-top: 25px; display: flex; justify-content: center; gap: 20px; position: relative; height: 60px; }
     button { padding: 12px 24px; border: none; border-radius: 30px; font-size: 16px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
-    button:hover { transform: scale(1.05); box-shadow: 0 6px 15px rgba(0,0,0,0.25); }
-    #yesBtn { background: linear-gradient(135deg, #e63946, #ff758c); color: white; z-index: 3; }
-    #noBtn { background: #dee2e6; color: #333; position: fixed; z-index: 999; }
-    .message { margin-top: 18px; font-size: 15px; color: #6a040f; min-height: 40px; font-style: italic; }
-  </style>
-</head>
-<body>
-  <div class="heart" style="left:10%; animation-delay:0s">❤️</div>
-  <div class="heart" style="left:25%; animation-delay:2s">💖</div>
-  <div class="heart" style="left:40%; animation-delay:4s">💕</div>
-  <div class="heart" style="left:60%; animation-delay:1s">💗</div>
-  <div class="heart" style="left:75%; animation-delay:3s">❤️</div>
-
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" alt="My Love" class="photo" />
-    <h1>💖 Happy Propose Day 💖</h1>
-    <p>From the moment you came into my life,<br/>everything started feeling warmer and brighter ✨</p>
-    <div class="question">Will you be mine, today and forever? 💍</div>
-
-    <div class="buttons">
-      <button id="yesBtn">Yes 💕</button>
-      <button id="noBtn">No 🙈</button>
-    </div>
-
-    <div class="message" id="msg"></div>
-  </div>
-
-  <script>
-    const messages = [
-      "Are you really saying no to *us*? 😳",
-      "My heart is already yours 💖",
-      "Please don’t do this to me 🥺",
-      "I can already see our future together 🌹",
-      "Okay… but YES looks better on you 😌"
-    ];
-    let msgIndex = 0;
-
-    document.addEventListener('DOMContentLoaded', () => {
-      const yesBtn = document.getElementById('yesBtn');
-      const noBtn = document.getElementById('noBtn');
-
-      yesBtn.addEventListener('click', () => {
-        document.querySelector('.card').innerHTML = `
-          <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9" class="photo" />
-          <h1>🥰 She said YES 🥰</h1>
-          <p>Today you made my heart feel complete 💕</p>
-          <p>I promise to love you, respect you, and choose you — every single day 🌹</p>
-          <h2>Forever starts now 💍✨</h2>
-        `;
-      });
-
-      noBtn.addEventListener('mouseover', () => {
-        // place button randomly anywhere in viewport
-        const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-        const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-        noBtn.style.left = x + 'px';
-        noBtn.style.top = y + 'px';
-
-        const msg = document.getElementById('msg');
-        msg.textContent = messages[msgIndex % messages.length];
-        msgIndex++;
-      });
-    });
-  </script>
-</body>
-</html>
+    button:hover { transform: scale(1.05); box-shadow: 0 6px 15p
