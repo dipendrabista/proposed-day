@@ -14,6 +14,7 @@
       background: linear-gradient(135deg, #ff758c, #ff7eb3);
       font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
       overflow: hidden;
+      position: relative;
     }
 
     .heart {
@@ -56,8 +57,8 @@
     .buttons { margin-top: 25px; display: flex; justify-content: center; gap: 20px; position: relative; height: 60px; }
     button { padding: 12px 24px; border: none; border-radius: 30px; font-size: 16px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
     button:hover { transform: scale(1.05); box-shadow: 0 6px 15px rgba(0,0,0,0.25); }
-    #yesBtn { background: linear-gradient(135deg, #e63946, #ff758c); color: white; }
-    #noBtn { background: #dee2e6; color: #333; position: relative; }
+    #yesBtn { background: linear-gradient(135deg, #e63946, #ff758c); color: white; z-index: 3; }
+    #noBtn { background: #dee2e6; color: #333; position: fixed; z-index: 999; }
     .message { margin-top: 18px; font-size: 15px; color: #6a040f; min-height: 40px; font-style: italic; }
   </style>
 </head>
@@ -107,15 +108,9 @@
       });
 
       noBtn.addEventListener('mouseover', () => {
-        noBtn.style.position = 'absolute';
-
-        const card = document.querySelector('.card');
-        const cardRect = card.getBoundingClientRect();
-
-        const x = Math.random() * (cardRect.width - noBtn.offsetWidth);
-        const y = Math.random() * (cardRect.height - noBtn.offsetHeight);
-
-        // make it jump far away
+        // place button randomly anywhere in viewport
+        const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+        const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
         noBtn.style.left = x + 'px';
         noBtn.style.top = y + 'px';
 
