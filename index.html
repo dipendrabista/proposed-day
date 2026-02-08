@@ -56,4 +56,189 @@
     .question { font-size: 18px; font-weight: bold; margin-top: 15px; color: #1d3557; }
     .buttons { margin-top: 25px; display: flex; justify-content: center; gap: 20px; position: relative; height: 60px; }
     button { padding: 12px 24px; border: none; border-radius: 30px; font-size: 16px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
-    button:hover { transform: scale(1.05); box-shadow: 0 6px 15p
+    button:hover { transform: scale(1.05); box-shadow: 0 6px 15px rgba(0,0,0,0.25); }
+    #yesBtn { background: linear-gradient(135deg, #e63946, #ff758c); color: white; z-index: 3; }
+    #noBtn { background: #dee2e6; color: #333; position: fixed; z-index: 999; }
+    .message { margin-top: 18px; font-size: 15px; color: #6a040f; min-height: 40px; font-style: italic; }
+
+    .email-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      max-width: 400px;
+      text-align: center;
+      z-index: 1000;
+    }
+    .email-modal button {
+      margin-top: 20px;
+      background: linear-gradient(135deg, #e63946, #ff758c);
+      color: white;
+    }
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 900;
+    }
+
+    .firework {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: #ffdd00;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0;
+      animation: explode 0.8s ease-out forwards;
+    }
+    @keyframes explode {
+      0% { transform: scale(1) translate(0,0); opacity:1; }
+      100% { transform: scale(3) translate(var(--x), var(--y)); opacity:0; }
+    }
+
+    .confetti {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background-color: hsl(var(--hue), 70%, 60%);
+      top: 0;
+      opacity: 0;
+      animation: fall 3s linear forwards;
+    }
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); opacity:1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity:0; }
+    }
+
+    .typing {
+      border-right: .15em solid #e63946;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+
+  <audio id="proposalMusic" src="https://assets.mixkit.co/music/preview/mixkit-romantic-piano-72.mp3" preload="auto"></audio>
+
+  <div class="overlay" id="overlay"></div>
+  <div class="email-modal" id="emailModal">
+    <h1>📧 You've got a new message!</h1>
+    <p>Open to see something special 💌</p>
+    <button id="openEmail">Open 💖</button>
+  </div>
+
+  <div class="heart" style="left:10%; animation-delay:0s">❤️</div>
+  <div class="heart" style="left:25%; animation-delay:2s">💖</div>
+  <div class="heart" style="left:40%; animation-delay:4s">💕</div>
+  <div class="heart" style="left:60%; animation-delay:1s">💗</div>
+  <div class="heart" style="left:75%; animation-delay:3s">❤️</div>
+
+  <div class="card" id="proposeCard" style="display:none;"></div>
+
+  <script>
+    const messages = [
+      "Are you really saying no to *us*? 😳",
+      "My heart is already yours 💖",
+      "Please don’t do this to me 🥺",
+      "I can already see our future together 🌹",
+      "Okay… but YES looks better on you 😌"
+    ];
+    let msgIndex = 0;
+
+    const music = document.getElementById('proposalMusic');
+
+    document.getElementById('openEmail').addEventListener('click', () => {
+      document.getElementById('emailModal').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+      showProposalCard();
+      launchFireworks();
+      launchConfetti();
+      music.play();
+    });
+
+    function showProposalCard() {
+      const card = document.getElementById('proposeCard');
+      card.style.display = 'block';
+      card.innerHTML = `
+        <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" class="photo" />
+        <h1 class="typing" id="typingText"></h1>
+        <div class="question">Will you be mine, today and forever? 💌</div>
+        <div class="buttons">
+          <button id="yesBtn">Yes 💕</button>
+          <button id="noBtn">No 🙈</button>
+        </div>
+        <div class="message" id="msg"></div>
+      `;
+      typeText("💖 Happy Valentine’s Day 💖");
+
+      const yesBtn = document.getElementById('yesBtn');
+      const noBtn = document.getElementById('noBtn');
+
+      yesBtn.addEventListener('click', () => {
+        card.innerHTML = `
+          <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9" class="photo" />
+          <h1>🥰 She said YES 🥰</h1>
+          <p>Today you made my heart feel complete 💕</p>
+          <p>I promise to love you, respect you, and choose you — every single day 🌹</p>
+          <h2>Forever starts now 💌✨</h2>
+        `;
+        launchFireworks();
+        launchConfetti();
+      });
+
+      noBtn.addEventListener('mouseover', () => {
+        const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+        const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+        noBtn.style.left = x + 'px';
+        noBtn.style.top = y + 'px';
+
+        const msg = document.getElementById('msg');
+        msg.textContent = messages[msgIndex % messages.length];
+        msgIndex++;
+      });
+    }
+
+    function typeText(text) {
+      const el = document.getElementById('typingText');
+      let i = 0;
+      el.textContent = '';
+      const interval = setInterval(() => {
+        el.textContent += text.charAt(i);
+        i++;
+        if(i >= text.length) clearInterval(interval);
+      }, 100);
+    }
+
+    function launchFireworks() {
+      for(let i=0;i<20;i++){
+        const fire = document.createElement('div');
+        fire.className='firework';
+        fire.style.left = Math.random()*window.innerWidth+'px';
+        fire.style.top = Math.random()*window.innerHeight+'px';
+        fire.style.setProperty('--x', (Math.random()*100-50)+'px');
+        fire.style.setProperty('--y', (Math.random()*100-50)+'px');
+        document.body.appendChild(fire);
+        setTimeout(()=>fire.remove(),800);
+      }
+    }
+
+    function launchConfetti(){
+      for(let i=0;i<50;i++){
+        const conf = document.createElement('div');
+        conf.className='confetti';
+        conf.style.left = Math.random()*window.innerWidth+'px';
+        conf.style.setProperty('--hue', Math.floor(Math.random()*360));
+        document.body.appendChild(conf);
+        setTimeout(()=>conf.remove(),3000);
+      }
+    }
+  </script>
+</body>
+</html>
