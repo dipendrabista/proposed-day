@@ -21,7 +21,8 @@
     .heart { position: absolute; color: rgba(255, 255, 255, 0.6); font-size: 18px; animation: float 8s linear infinite; }
     @keyframes float { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 20% { opacity: 1; } 100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; } }
 
-    .card { background: white; padding: 20px 25px; border-radius: 25px; box-shadow: 0 12px 40px rgba(0,0,0,0.3); text-align: center; max-width: 500px; width: 85%; position: relative; z-index: 2; }
+    .card { background: white; padding: 20px 25px; border-radius: 25px; box-shadow: 0 12px 40px rgba(0,0,0,0.3); text-align: center; max-width: 500px; width: 85%; position: relative; z-index: 2; transition: all 0.4s ease; }
+    .card.yes-state { max-width: 380px; width: 78%; padding: 16px 18px; }
     .photo { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #ff7eb3; box-shadow: 0 6px 15px rgba(0,0,0,0.25); margin-bottom: 15px; }
     h1 { color: #e63946; margin-bottom: 10px; font-size: 22px; }
     .question { font-size: 18px; font-weight: bold; margin-top: 12px; color: #1d3557; }
@@ -125,8 +126,9 @@
 
       yesBtn.addEventListener('click', () => {
         yesClicked = true;
-        msg.innerHTML = `<span style='font-family:Pacifico, cursive; font-size:28px; font-weight:bold; line-height:1.5;'>🥰 She said YES 🥰</span><br>
-        <span style='font-family:Pacifico, cursive; font-size:26px; font-weight:bold; line-height:1.5;'>Today you made my heart feel complete 💕<br><br>
+        document.getElementById('proposeCard').classList.add('yes-state');
+        msg.innerHTML = `<span style='font-family:Pacifico, cursive; font-size:24px; font-weight:bold; line-height:1.4;'>🥰 She said YES 🥰</span><br>
+        <span style='font-family:Pacifico, cursive; font-size:22px; font-weight:bold; line-height:1.4;'>Today you made my heart feel complete 💕<br><br>
         I promise to love you, respect you, and choose you — every single day 🌹<br><br>
         Forever starts now 💌✨</span>`;
 
