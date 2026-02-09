@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ultimate Interactive Valentine 💌</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Pacifico&family=Kaushan+Script&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
@@ -17,110 +18,33 @@
       position: relative;
     }
 
-    .heart {
-      position: absolute;
-      color: rgba(255, 255, 255, 0.6);
-      font-size: 18px;
-      animation: float 8s linear infinite;
-    }
-    @keyframes float {
-      0% { transform: translateY(100vh); opacity: 0; }
-      20% { opacity: 1; }
-      100% { transform: translateY(-10vh); opacity: 0; }
-    }
+    .heart { position: absolute; color: rgba(255, 255, 255, 0.6); font-size: 18px; animation: float 8s linear infinite; }
+    @keyframes float { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 20% { opacity: 1; } 100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; } }
 
-    .card {
-      background: white;
-      padding: 26px;
-      border-radius: 22px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-      text-align: center;
-      max-width: 380px;
-      width: 92%;
-      position: relative;
-      z-index: 2;
-    }
-
-    .photo {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid #ff7eb3;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-      margin-bottom: 15px;
-    }
-
-    h1 { color: #e63946; margin-bottom: 10px; }
-    p { color: #444; font-size: 16px; line-height: 1.4; }
-    .question { font-size: 18px; font-weight: bold; margin-top: 15px; color: #1d3557; }
-    .buttons { margin-top: 25px; display: flex; justify-content: center; gap: 20px; position: relative; height: 60px; }
-    button { padding: 12px 24px; border: none; border-radius: 30px; font-size: 16px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
-    button:hover { transform: scale(1.05); box-shadow: 0 6px 15px rgba(0,0,0,0.25); }
+    .card { background: white; padding: 20px 25px; border-radius: 25px; box-shadow: 0 12px 40px rgba(0,0,0,0.3); text-align: center; max-width: 500px; width: 85%; position: relative; z-index: 2; }
+    .photo { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #ff7eb3; box-shadow: 0 6px 15px rgba(0,0,0,0.25); margin-bottom: 15px; }
+    h1 { color: #e63946; margin-bottom: 10px; font-size: 22px; }
+    .question { font-size: 18px; font-weight: bold; margin-top: 12px; color: #1d3557; }
+    .buttons { margin-top: 12px; display: flex; justify-content: center; gap: 15px; position: relative; height: 50px; flex-wrap: wrap; }
+    button { padding: 12px 24px; border: none; border-radius: 30px; font-size: 16px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; position: relative; }
+    button:hover { transform: scale(1.1) rotate(5deg); box-shadow: 0 6px 15px rgba(0,0,0,0.4); }
     #yesBtn { background: linear-gradient(135deg, #e63946, #ff758c); color: white; z-index: 3; }
-    #noBtn { background: #dee2e6; color: #333; position: fixed; z-index: 999; }
-    .message { margin-top: 18px; font-size: 15px; color: #6a040f; min-height: 40px; font-style: italic; }
+    #noBtn { background: #dee2e6; color: #333; z-index: 3; }
 
-    .email-modal {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: white;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-      max-width: 400px;
-      text-align: center;
-      z-index: 1000;
-    }
-    .email-modal button {
-      margin-top: 20px;
-      background: linear-gradient(135deg, #e63946, #ff758c);
-      color: white;
-    }
-    .overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
-      z-index: 900;
-    }
+    .message { margin-top: 12px; color: #b00020; min-height: 120px; font-style: normal; font-family: 'Pacifico', cursive; white-space: pre-line; line-height: 1.5; text-align: center; transition: font 0.3s ease; font-size: 22px; }
 
-    .firework {
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      background: #ffdd00;
-      border-radius: 50%;
-      pointer-events: none;
-      opacity: 0;
-      animation: explode 0.8s ease-out forwards;
-    }
-    @keyframes explode {
-      0% { transform: scale(1) translate(0,0); opacity:1; }
-      100% { transform: scale(3) translate(var(--x), var(--y)); opacity:0; }
-    }
+    .email-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); max-width: 380px; text-align: center; z-index: 1000; }
+    .email-modal button { margin-top: 15px; background: linear-gradient(135deg, #e63946, #ff758c); color: white; font-size: 16px; padding: 10px 20px; }
+    .overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); z-index:900; }
 
-    .confetti {
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      background-color: hsl(var(--hue), 70%, 60%);
-      top: 0;
-      opacity: 0;
-      animation: fall 3s linear forwards;
-    }
-    @keyframes fall {
-      0% { transform: translateY(0) rotate(0deg); opacity:1; }
-      100% { transform: translateY(100vh) rotate(360deg); opacity:0; }
-    }
+    .firework { position: absolute; width: 6px; height: 6px; background: #ffdd00; border-radius: 50%; pointer-events: none; opacity: 0; animation: explode 0.8s ease-out forwards; }
+    @keyframes explode { 0% { transform: scale(1) translate(0,0); opacity:1; } 100% { transform: scale(3) translate(var(--x), var(--y)); opacity:0; } }
 
-    .typing {
-      border-right: .15em solid #e63946;
-      white-space: nowrap;
-      overflow: hidden;
-    }
+    .confetti { position: absolute; width: 8px; height: 8px; background-color: hsl(var(--hue), 70%, 60%); top: 0; opacity: 0; animation: fall 2.5s linear forwards, sway 1s ease-in-out infinite alternate; }
+    @keyframes fall { 0% { transform: translateY(0) rotate(0deg); opacity:1; } 100% { transform: translateY(100vh) rotate(720deg); opacity:0; } }
+    @keyframes sway { 0% { transform: translateX(0) rotate(0deg); } 100% { transform: translateX(10px) rotate(20deg); } }
+
+    .typing { border-right: .15em solid #e63946; white-space: nowrap; overflow: hidden; }
   </style>
 </head>
 <body>
@@ -143,65 +67,80 @@
   <div class="card" id="proposeCard" style="display:none;"></div>
 
   <script>
-    const messages = [
-      "Are you really saying no to *us*? 😳",
-      "My heart is already yours 💖",
-      "Please don’t do this to me 🥺",
-      "I can already see our future together 🌹",
-      "Okay… but YES looks better on you 😌"
+    const romanticMessages = [
+      "I can't imagine my life without you 💕",
+      "Every day with you is a dream come true 🌸",
+      "You complete me in every way 😘",
+      "I promise to make you smile forever 🌹"
     ];
-    let msgIndex = 0;
 
+    let msgIndex = 0;
     const music = document.getElementById('proposalMusic');
 
     document.getElementById('openEmail').addEventListener('click', () => {
       document.getElementById('emailModal').style.display = 'none';
       document.getElementById('overlay').style.display = 'none';
       showProposalCard();
-      launchFireworks();
-      launchConfetti();
-      music.play();
     });
 
     function showProposalCard() {
       const card = document.getElementById('proposeCard');
       card.style.display = 'block';
       card.innerHTML = `
-        <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" class="photo" />
+        <img src="https://raw.githubusercontent.com/dipendrabista/proposed-day/4aa8fbb4abe940883a93bfa36541834f76f802cb/WhatsApp%20Image%202026-02-08%20at%2014.55.46.jpeg" class="photo" />
         <h1 class="typing" id="typingText"></h1>
         <div class="question">Will you be mine, today and forever? 💌</div>
-        <div class="buttons">
+        <div class="buttons" id="buttonsContainer">
           <button id="yesBtn">Yes 💕</button>
           <button id="noBtn">No 🙈</button>
         </div>
-        <div class="message" id="msg"></div>
+        <div class="message" id="msg">💖 Happy Valentine’s Day 💖</div>
       `;
       typeText("💖 Happy Valentine’s Day 💖");
 
       const yesBtn = document.getElementById('yesBtn');
       const noBtn = document.getElementById('noBtn');
+      const buttonsContainer = document.getElementById('buttonsContainer');
+      const msg = document.getElementById('msg');
 
-      yesBtn.addEventListener('click', () => {
-        card.innerHTML = `
-          <img src="https://github.com/dipendrabista/proposed-day/blob/4aa8fbb4abe940883a93bfa36541834f76f802cb/WhatsApp%20Image%202026-02-08%20at%2014.55.46.jpeg" class="photo" />
-          <h1>🥰 She said YES 🥰</h1>
-          <p>Today you made my heart feel complete 💕</p>
-          <p>I promise to love you, respect you, and choose you — every single day 🌹</p>
-          <h2>Forever starts now 💌✨</h2>
-        `;
-        launchFireworks();
-        launchConfetti();
-      });
+      let yesClicked = false;
 
       noBtn.addEventListener('mouseover', () => {
+        if(yesClicked) return;
         const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
         const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+        const rotate = Math.random() * 360;
+        noBtn.style.position = 'fixed';
         noBtn.style.left = x + 'px';
         noBtn.style.top = y + 'px';
+        noBtn.style.transform = `rotate(${rotate}deg)`;
 
-        const msg = document.getElementById('msg');
-        msg.textContent = messages[msgIndex % messages.length];
+        msg.style.fontFamily = `'Pacifico', cursive`;
+        msg.style.fontSize = '24px';
+        msg.style.fontWeight = 'normal';
+        msg.style.lineHeight = '1.6';
+        msg.textContent = romanticMessages[msgIndex % romanticMessages.length];
         msgIndex++;
+      });
+
+      yesBtn.addEventListener('click', () => {
+        yesClicked = true;
+        msg.innerHTML = `<span style='font-family:Pacifico, cursive; font-size:28px; font-weight:bold; line-height:1.5;'>🥰 She said YES 🥰</span><br>
+        <span style='font-family:Pacifico, cursive; font-size:26px; font-weight:bold; line-height:1.5;'>Today you made my heart feel complete 💕<br><br>
+        I promise to love you, respect you, and choose you — every single day 🌹<br><br>
+        Forever starts now 💌✨</span>`;
+
+        buttonsContainer.style.display = 'none';
+
+        music.pause();
+        music.currentTime = 0;
+        const playPromise = music.play();
+        if(playPromise !== undefined){
+          playPromise.then(_ => {}).catch(err => console.log('Autoplay blocked:', err));
+        }
+
+        launchFireworks();
+        launchConfetti();
       });
     }
 
@@ -235,6 +174,7 @@
         conf.className='confetti';
         conf.style.left = Math.random()*window.innerWidth+'px';
         conf.style.setProperty('--hue', Math.floor(Math.random()*360));
+        conf.style.animationDelay = Math.random()+'s';
         document.body.appendChild(conf);
         setTimeout(()=>conf.remove(),3000);
       }
